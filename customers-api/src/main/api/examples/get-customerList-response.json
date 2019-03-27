@@ -1,0 +1,32 @@
+[
+  {
+    "id":"1",
+    "firstName":"John",
+    "lastName":"Smith",
+    "title":"Mr",
+    "gender":"Male",
+    "address":{
+      "line1":"225 George Street",
+      "line2":"Level 9",
+      "suburb":"Sydney",
+      "postCode":"2000",
+      "state":"NSW",
+      "country":"Australia"
+    }
+  },
+  {
+    "id":"2",
+    "firstName":"Jane",
+    "lastName":"Smith",
+    "title":"Mrs",
+    "gender":"Female",
+    "address":{
+      "line1":"225 George Street",
+      "line2":"Level 9",
+      "suburb":"Sydney",
+      "postCode":"2000",
+      "state":"NSW",
+      "country":"Australia"
+    }
+  }
+]

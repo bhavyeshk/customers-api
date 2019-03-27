@@ -1,0 +1,49 @@
+#%RAML 1.0 Library
+usage: Customer API Types Library
+
+types:
+  
+  Customer:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Customer Identifier
+      firstName?:
+        type: string
+        description: Customer First Name
+      lastName:
+        type: string
+        description: Customer Last Name
+      title?:
+        type: string
+        description: Customer title/salutation
+      gender?:
+        type: string
+        description: Customer Gender
+      address?:
+        type: Address
+        description: Customer Address
+
+  Address:
+    type: object
+    description: Customer Address
+    properties:
+      line1:
+        type: string
+        description: Address Line 1
+      line2?:
+        type: string
+        description: Address Line 2
+      suburb:
+        type: string
+        description: Suburb
+      state:
+        type: string
+        description: State
+      postCode:
+        type: string
+        description: Post Code
+      country?:
+        type: string
+        description: Country

@@ -1,0 +1,109 @@
+#%RAML 1.0 Library
+
+traits:
+  compliant: !include ../traits/compliant.raml
+  
+uses:
+  traitsLibrary: TraitsLibrary.raml
+
+
+
+types:
+
+resourceTypes: 
+
+  collection:
+    description: A collection of <<resourcePathName>>
+    get:
+      description: Retrieve list of <<resourcePathName>>
+      is: [compliant, 
+          traitsLibrary.hasCollectionResponse: { 
+              typeName: <<typeName>>, example: <<getCollectionExample>>,
+          },
+          traitsLibrary.contentCacheable, traitsLibrary.timeBasedCacheable,
+          traitsLibrary.paged
+          ]
+    # responses:
+    #     200:
+    #       body:
+    #         application/json:
+    #           example: <<getCollectionExample>>
+    
+    post:
+      description: Add a new <<resourcePathName|!singularize>>
+      is: [ compliant, 
+          traitsLibrary.hasItemRequest: {
+            typeName: <<typeName>>, 
+            example: <<postRequestExample>>
+            },
+          traitsLibrary.hasPostResponse: {
+              typeName: object, 
+              example: <<postResponseExample>>
+            }
+          ]
+    #  body:
+    #    application/json:
+    #      type: <<resourcePathName|!singularize>>
+    #      example: <<postRequestExample>>
+    #  responses:
+    #    201:
+    #      body:
+    #        application/json:
+    #          example: <<postResponseExample>>
+    
+  collection-item:
+    description: Entity representing a <<resourcePathName|!singularize>>
+    get:
+      description: Retrieve <<resourcePathName|!singularize>> from collection
+      is: [ compliant,
+          traitsLibrary.hasItemResponse: {
+              typeName: object, 
+              example: <<getInstanceExample>>
+            },
+            traitsLibrary.acceptEncoding
+          ]
+      #responses:
+      #    200:
+      #      body:
+      #        application/json:
+      #          example: <<getCollectionItemExample>>
+      #    404:
+      #      body:
+      #        application/json:
+      #          example: |
+      #            {"message": "<<resourcePathName|!singularize>> not found" }
+    put:
+      description: Update a given <<resourcePathName|!singularize>> 
+      is: [ compliant, 
+        traitsLibrary.hasItemRequest: {
+          typeName: <<typeName>>, 
+          example: <<putRequestExample>>
+          },
+        traitsLibrary.hasItemResponse: {
+            typeName: object, 
+            example: <<putResponseExample>>
+          },
+          traitsLibrary.contentEncoding
+        ]
+    #  body:
+    #    application/json:
+    #      type: <<putType>
+    #      example: <<putCollectionItemExample>>
+    #  responses: 
+    #    200:
+    #      body: 
+    #        example: <<putSuccessfulExample>>
+
+    delete:
+      description: Delete <<resourcePathName|!singularize>> from a collection
+      is: [ compliant, 
+        traitsLibrary.hasItemResponse: {
+          typeName: object, 
+          example: <<deleteInstanceExample>>
+        }
+      ]
+    #  responses: 
+    #    200:
+    #      body:
+    #        application/json:
+    #          example: <<deleteCollectionItemExample>>

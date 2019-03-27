@@ -1,0 +1,75 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/56c3a8cc-333b-46e0-8eb4-a04956200c09/ # 
+title: customers-api
+version: v1
+
+mediaType: application/json
+
+
+uses:
+  CustomerTypes: /libraries/CustomerTypes.raml
+  ResourceTypes: /libraries/ResourceTypes.raml
+
+
+/customers:
+
+  type: {
+    ResourceTypes.collection: {
+      typeName: CustomerTypes.Customer,
+      getCollectionExample: !include /examples/get-customerList-response.json,
+      postRequestExample: !include /examples/post-customer-request.json,
+      postResponseExample: !include /examples/post-success-response.json
+    }
+  }
+  /{id}:
+    type: {
+      ResourceTypes.collection-item: {
+        typeName: CustomerTypes.Customer,
+        getInstanceExample: !include /examples/get-customer-response.json,
+        putRequestExample: !include /examples/put-customer-request.json,
+        putResponseExample: !include /examples/put-customer-response.json,
+        deleteInstanceExample: !include /examples/delete-customer-response.json
+      }
+    }
+
+#/orders:
+
+#  type: {
+#    ResourceTypes.collection: {
+#      typeName: OrderTypes.Order,
+#      getCollectionExample: !include /examples/get-ordersList-response.json,
+#      postRequestExample: !include /examples/post-orders-request.json,
+#      postResponseExample: !include /examples/post-orders-response.json
+#    }
+#  }
+#  /{id}:
+#    type: {
+#      ResourceTypes.collection-item: {
+#        typeName: OrderTypes.Order,
+#        getInstanceExample: !include /examples/get-orders-response.json,
+#        putRequestExample: !include /examples/put-orders-request.json,
+#        putResponseExample: !include /examples/put-orders-response.json,
+#        deleteInstanceExample: !include /examples/delete-customer-response.json
+#      }
+#    }
+
+#/products:
+
+#  type: {
+#    ResourceTypes.collection: {
+#      typeName: ProductTypes.Product,
+#      getCollectionExample: !include /examples/get-productList-response.json,
+#      postRequestExample: !include /examples/post-products-request.json,
+#      postResponseExample: !include /examples/post-products-response.json
+#    }
+#  }
+#  /{id}:
+#    type: {
+#      ResourceTypes.collection-item: {
+#        typeName: ProductTypes.Product,
+#        getInstanceExample: !include /examples/get-product-response.json,
+#        putRequestExample: !include /examples/put-product-request.json,
+#        putResponseExample: !include /examples/put-product-response.json,
+#        deleteInstanceExample: !include /examples/delete-product-response.json
+#      }
+#    }

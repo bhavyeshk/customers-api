@@ -1,0 +1,95 @@
+#%RAML 1.0 Library
+usage: Traits Library
+
+
+traits:
+
+#Request/Response traits 
+  #PUT collection-item Requests
+  hasItemRequest: #PUT Request
+    usage: Used for request methods
+    body:
+      application/json:
+        type: <<typeName>>
+        example: <<example>>
+
+  #POST collection Response
+  hasPostResponse: 
+    responses:
+      201:
+        body:
+          application/json:
+            type: <<typeName>>
+            example: <<example>>
+
+  #PUT collection-item Response
+  hasItemResponse: 
+    responses:
+      200:
+        body:
+          application/json:
+            type: <<typeName>>
+            example: <<example>>
+
+  #GET Collection Response
+  hasCollectionResponse: 
+    responses:
+      200:
+        body:
+          application/json:
+            type: <<typeName>>[]
+            example: <<example>>
+
+  #Error response - Not Found
+  hasErrorResponse:
+    responses:
+      404:
+        body:
+          application/json:
+            example: <<example>>
+
+  #Caching Traits
+  contentCacheable:
+    usage: Content based cache, will be applicable to any GET Method which support content based caching
+    headers:
+      If-None-Match?:
+        type: string
+        description: HTTP request header makes the request conditional.For GET method, the server will send back the requested resource, with a 200 status, only if it doesn't have an ETag matching the given one. If the entity does match the provided ETag then HTTP 304 Not Modified status will be returned instead of requested resource
+
+  timeBasedCacheable:
+    headers:
+      If-Modified-Since?: 
+        type: string
+        description: This header requests to return the resource only if it has changed since the time specified in the header (RFC 1123 date format). If the entity was not modified, then HTTP 304 Not Modified status will be returned instead of the requested resource.
+        example: Tue, 26 Mar 2019 13:37:00 GMT
+
+#Encoding Traits
+  acceptEncoding:
+    headers:
+      Accept-Encoding?:
+        type: string
+        description: The request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand
+
+  contentEncoding:
+    headers:
+      Content-Encoding?:
+        type: string
+        description: The header is used to compress the media-type. When present, its value indicates which encodings were applied to the entity-body.
+
+#Pagination
+
+  paged:
+    usage: Pagination trait can be applied to method returning list of entities.
+    description:  The trait involves adding query parameters to the request so that response can be paginated.
+    queryParameters:
+      page?:
+        type: integer
+        description: The Page number to be retrieved.
+        example: 1
+        minimum: 1
+      limit?:
+        type: integer
+        description: Limit the number of elements on the response returned on the page
+        example: 50
+      
+      
